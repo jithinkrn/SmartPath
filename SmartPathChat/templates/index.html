@@ -1,0 +1,65 @@
+
+{% load static %}
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot UI</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/botui.css' %}">
+</head>
+<body>
+    <div class="chat-container" id="chat-container">
+        <!-- Chat entries -->
+        <img src="{% static 'images/bot_avatar.webp' %}" class="avatar">
+        <div class="chat-entry bot">Welcome to the SmartPath! How can I assist you today?</div>
+    </div>
+    <div class="chat-input">
+        <form id="chat-form">
+            <input type="text" class="form-control" id="chat-message" placeholder="Type a message..." required>
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap-5.3.3-dist/js/bootstrap.min.js' %}"></script>
+    <script>
+        document.getElementById('chat-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    var message = document.getElementById('chat-message').value;
+    if(message.trim()) {
+        var chatContainer = document.getElementById('chat-container');
+        
+        // Create a new div for the user message
+        var userEntry = document.createElement('div');
+        userEntry.className = 'chat-entry user';
+        var messageText = document.createElement('div');
+        messageText.textContent = message;
+        userEntry.appendChild(messageText);
+        chatContainer.appendChild(userEntry);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+        document.getElementById('chat-message').value = '';
+        
+        // TODO: Send the message to your chatbot backend
+        // and handle the response to append a bot's message to the chat.
+        // For example, you would have something like this:
+        /*
+        sendToChatbot(message).then(response => {
+            var botEntry = document.createElement('div');
+            botEntry.className = 'chat-entry bot';
+            var botMessageText = document.createElement('div');
+            botMessageText.textContent = response;
+            botEntry.appendChild(botMessageText);
+            chatContainer.appendChild(botEntry);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        });
+        */
+    }
+});
+    </script>
+</body>
+</html>
