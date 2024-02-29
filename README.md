@@ -1,3 +1,5 @@
+Required Python version: 3.11
+
 To install Djanko:
 pip install Django
 
